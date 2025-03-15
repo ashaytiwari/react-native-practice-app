@@ -1,118 +1,101 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+function App() {
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  const [enteredGoalText, setEnteredGoalText] = useState('');
+  const [goals, setGoals] = useState<Array<any>>([]);
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  function inputChangeHandler(text: string) {
+    setEnteredGoalText(text);
+  }
+
+  function addGoal() {
+
+    if (!enteredGoalText) {
+      return;
+    }
+
+    setGoals((_goals) => [..._goals, enteredGoalText]);
+    setEnteredGoalText('');
+
+  }
+
+  console.log(goals);
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
+    <View style={styles.appContainer}>
+
+      <Text style={styles.heading}>Goals Tracker</Text>
+
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.textInput} placeholder='Enter your goals' value={enteredGoalText} onChangeText={inputChangeHandler} />
+        <Button title={'Add Goal'} onPress={addGoal} />
+      </View>
+
+      <View style={styles.goalsContainer}>
+
+        <ScrollView>
           {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+            goals.map((goal, index) => (
+              <View key={index} style={styles.goalItem}><Text style={styles.goalText}>{goal}</Text></View>
+            ))
+          }
+        </ScrollView>
+
+      </View>
+
     </View>
   );
-}
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  appContainer: {
+    backgroundColor: '#5e69ee',
+    paddingTop: 50,
+    paddingHorizontal: 16,
+    height: '100%'
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  heading: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 20
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 20,
+    borderBottomWidth: 1,
+    columnGap: 5,
+    flex: 1,
+    alignItems: 'center'
   },
-  highlight: {
-    fontWeight: '700',
+  textInput: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    flex: 1,
   },
+  goalsContainer: {
+    marginVertical: 20,
+    flex: 8
+  },
+  goalItem: {
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: '#f5f5f5',
+    borderWidth: 1,
+    borderColor: '#fff',
+    marginBottom: 15
+  },
+  goalText: {
+    fontSize: 16,
+    color: '#5e69ee',
+    fontWeight: '500'
+  }
 });
 
 export default App;
