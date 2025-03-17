@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 function App() {
 
@@ -17,12 +17,30 @@ function App() {
       return;
     }
 
-    setGoals((_goals) => [..._goals, enteredGoalText]);
+    const newGoal = {
+      id: Math.random().toString(),
+      text: enteredGoalText
+    };
+    setGoals((_goals) => [..._goals, newGoal]);
     setEnteredGoalText('');
 
   }
 
-  console.log(goals);
+  function deleteGoalItem(id: number) {
+    setGoals((currentGoals) => currentGoals.filter((goal) => goal.id !== id));
+  }
+
+  function renderGoalItem(goalItem: any) {
+
+    return (
+      <Pressable onPress={() => { deleteGoalItem(goalItem.item.id) }}>
+        <View style={styles.goalItem}>
+          <Text style={styles.goalText}>{goalItem.item.text}</Text>
+        </View>
+      </Pressable>
+    );
+
+  }
 
   return (
     <View style={styles.appContainer}>
@@ -36,13 +54,11 @@ function App() {
 
       <View style={styles.goalsContainer}>
 
-        <ScrollView>
-          {
-            goals.map((goal, index) => (
-              <View key={index} style={styles.goalItem}><Text style={styles.goalText}>{goal}</Text></View>
-            ))
-          }
-        </ScrollView>
+        <FlatList
+          data={goals}
+          renderItem={renderGoalItem}
+          keyExtractor={(item) => item.id}
+        />
 
       </View>
 
