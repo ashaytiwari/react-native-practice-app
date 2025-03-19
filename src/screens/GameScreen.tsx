@@ -1,10 +1,23 @@
 import React from 'react';
-import { Text } from 'react-native';
+
+import { StyleSheet, Text, View } from 'react-native';
+
+import Title from '../components/Title';
 
 const GameScreen = () => {
 
-  return <Text>Game Screen</Text>;
+  return (
+    <View style={styles.gameScreenView}>
+      <Title>Opponent's Guess</Title>
+    </View>
+  );
 
 };
 
 export default GameScreen;
+
+const styles = StyleSheet.create({
+  gameScreenView: {
+    padding: 16,
+  }
+});

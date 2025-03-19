@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import Colors from '../constants/colors';
+
 interface IPrimaryButtonProps {
   children: React.ReactNode,
   onPress?: () => void
@@ -25,7 +27,7 @@ export default PrimaryButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: '#72063c',
+    backgroundColor: Colors.primary500,
     borderRadius: 28,
     paddingVertical: 8,
     paddingHorizontal: 16,
