@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, ImageBackground } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 
 import StartGameScreen from './src/screens/StartGameScreen';
+import GameScreen from './src/screens/GameScreen';
 
 function App() {
+
+  const [userSelectedNumber, setUserSelectedNumber] = useState<null | number>(null);
+
+  function selectNumberHandler(value: number) {
+    setUserSelectedNumber(value);
+  }
+
+  function renderScreen() {
+
+    if (userSelectedNumber) {
+      return <GameScreen />;
+    }
+
+    return <StartGameScreen onNumberSelect={selectNumberHandler} />;
+  }
+
   const imageBackgroundAttributes = {
     source: require('./src/assets/images/background.jpg'),
     style: styles.rootContainer,
@@ -15,7 +32,7 @@ function App() {
     <ImageBackground {...imageBackgroundAttributes} resizeMode='cover'>
       <View style={styles.gradientContainer}>
         <LinearGradient colors={['#4e0329', '#ddb52f']} style={styles.gradient} />
-        <StartGameScreen />
+        {renderScreen()}
       </View>
     </ImageBackground>
   );
