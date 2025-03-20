@@ -20,8 +20,9 @@ function App() {
     setGameOver(false);
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(totalRounds: number) {
     setGameOver(true);
+    setRounds(totalRounds);
   }
 
   function gameRestartHandler() {

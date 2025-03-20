@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
+
+import Colors from '../constants/colors';
 
 import Title from '../components/Title';
 import NumberContainer from '../components/NumberContainer';
+import PrimaryButton from '../components/PrimaryButton';
+import GuessLogItem from '../components/GuessLogItem';
 
 import { generateRandomBetween } from '../utilities';
-import Colors from '../constants/colors';
-import PrimaryButton from '../components/PrimaryButton';
 
 interface IGameScreenProps {
   enteredNumber: number,
-  onGameOver: () => void
+  onGameOver: (totalRounds: number) => void
 }
 
 let minBoundary = 1;
@@ -23,10 +25,11 @@ const GameScreen: React.FC<IGameScreenProps> = (props) => {
 
   const initialGuess = generateRandomBetween(1, 100, enteredNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([{ id: 1, value: initialGuess }]);
 
   useEffect(() => {
     if (currentGuess === enteredNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length + 1);
     }
   }, [currentGuess, enteredNumber, onGameOver]);
 
@@ -54,6 +57,18 @@ const GameScreen: React.FC<IGameScreenProps> = (props) => {
       currentGuess
     );
     setCurrentGuess(newRndNumber);
+    setGuessRounds((_rounds) => [{ id: _rounds.length + 1, value: newRndNumber }, ..._rounds]);
+  }
+
+  function renderGuessRoundItem(roundItem: any){
+
+    const guessLogItemAttributes = {
+      roundNumber: roundItem.item.id,
+      guess: roundItem.item.value
+    };
+
+    return <GuessLogItem {...guessLogItemAttributes} />;
+
   }
 
   return (
@@ -73,6 +88,8 @@ const GameScreen: React.FC<IGameScreenProps> = (props) => {
           </View>
         </View>
       </View>
+
+      <FlatList data={guessRounds} keyExtractor={(item) => String(item.id)} renderItem={renderGuessRoundItem} />
 
     </View>
   );
