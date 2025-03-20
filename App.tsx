@@ -13,6 +13,7 @@ function App() {
 
   const [userSelectedNumber, setUserSelectedNumber] = useState<null | number>(null);
   const [gameOver, setGameOver] = useState(true);
+  const [rounds, setRounds] = useState(0);
 
   function selectNumberHandler(value: number) {
     setUserSelectedNumber(value);
@@ -23,10 +24,22 @@ function App() {
     setGameOver(true);
   }
 
+  function gameRestartHandler() {
+    setUserSelectedNumber(null);
+    setRounds(0);
+  }
+
   function renderScreen() {
 
     if (gameOver === true && userSelectedNumber) {
-      return <GameOverScreen />;
+
+      const gameOverScreenAttributes = {
+        rounds,
+        enteredNumber: userSelectedNumber,
+        onGameRestart: gameRestartHandler
+      };
+
+      return <GameOverScreen {...gameOverScreenAttributes} />;
     }
 
     if (userSelectedNumber) {

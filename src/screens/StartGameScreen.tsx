@@ -5,6 +5,7 @@ import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import Colors from '../constants/colors';
 
 import PrimaryButton from '../components/PrimaryButton';
+import Title from '../components/Title';
 
 interface IStartGameScreenProps {
   onNumberSelect: (value: number) => void
@@ -12,7 +13,7 @@ interface IStartGameScreenProps {
 
 const StartGameScreen: React.FC<IStartGameScreenProps> = (props) => {
 
-  const {onNumberSelect} = props;
+  const { onNumberSelect } = props;
 
   const [enteredNumber, setEnteredNumber] = useState('');
 
@@ -49,19 +50,23 @@ const StartGameScreen: React.FC<IStartGameScreenProps> = (props) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={styles.rootContainer}>
+      <Title>Guess My Number</Title>
 
-      <TextInput {...numberInputAttributes} keyboardType='number-pad' />
+      <View style={styles.inputContainer}>
+        <Text style={styles.formLabel}>Enter a Number</Text>
+        <TextInput {...numberInputAttributes} keyboardType='number-pad' />
 
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-        </View>
+
       </View>
-
     </View>
   );
 
@@ -70,15 +75,22 @@ const StartGameScreen: React.FC<IStartGameScreenProps> = (props) => {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    marginTop: 50,
+    padding: 16
+  },
   inputContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 100,
-    marginHorizontal: 24,
+    marginTop: 50,
     borderRadius: 8,
     padding: 16,
     backgroundColor: Colors.primary800,
     elevation: 3
+  },
+  formLabel: {
+    fontSize: 25,
+    color: Colors.accent500
   },
   numberInput: {
     height: 60,
@@ -92,7 +104,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   buttonsContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 20
   },
   buttonContainer: {
     flex: 1
