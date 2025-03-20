@@ -7,19 +7,36 @@ import Colors from './src/constants/colors';
 
 import StartGameScreen from './src/screens/StartGameScreen';
 import GameScreen from './src/screens/GameScreen';
+import GameOverScreen from './src/screens/GameOverScreen';
 
 function App() {
 
   const [userSelectedNumber, setUserSelectedNumber] = useState<null | number>(null);
+  const [gameOver, setGameOver] = useState(true);
 
   function selectNumberHandler(value: number) {
     setUserSelectedNumber(value);
+    setGameOver(false);
+  }
+
+  function gameOverHandler() {
+    setGameOver(true);
   }
 
   function renderScreen() {
 
+    if (gameOver === true && userSelectedNumber) {
+      return <GameOverScreen />;
+    }
+
     if (userSelectedNumber) {
-      return <GameScreen />;
+
+      const gameScreenAttributes = {
+        enteredNumber: userSelectedNumber,
+        onGameOver: gameOverHandler
+      };
+
+      return <GameScreen {...gameScreenAttributes} />;
     }
 
     return <StartGameScreen onNumberSelect={selectNumberHandler} />;
