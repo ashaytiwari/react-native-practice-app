@@ -1,11 +1,15 @@
-import { Text, View } from "react-native";
+import { StatusBar, Text, View } from "react-native";
 
-function App(){
+import CategoriesScreen from "./src/screens/CategoriesScreen";
+import { Colors } from "./src/helpers/colors";
+
+function App() {
 
   return (
-    <View>
-      <Text>Hello World</Text>
-    </View>
+    <>
+      <StatusBar barStyle={'light-content'} backgroundColor={Colors.darkBGColor} />
+      <CategoriesScreen />
+    </>
   );
 
 }
