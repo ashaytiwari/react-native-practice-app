@@ -22,7 +22,9 @@ function CategoriesScreen() {
       title: itemData.item.title,
       color: itemData.item.color,
       onPress() {
-        navigation.navigate(screenNames.MEALS_OVERVIEW);
+        navigation.navigate(screenNames.MEALS_OVERVIEW, {
+          categoryId: itemData.item.id
+        });
       }
     };
 
