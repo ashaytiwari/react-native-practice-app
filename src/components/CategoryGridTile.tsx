@@ -3,12 +3,13 @@ import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 interface ICategoryGridTileProps {
   title: string,
-  color: string
+  color: string,
+  onPress: () => void
 }
 
 const CategoryGridTile: React.FC<ICategoryGridTileProps> = (props) => {
 
-  const { title, color } = props;
+  const { title, color, onPress } = props;
 
   const pressableControlAttributes = {
     android_ripple: { color: '#ccc' },
@@ -17,7 +18,8 @@ const CategoryGridTile: React.FC<ICategoryGridTileProps> = (props) => {
         styles.button,
         event.pressed ? styles.buttonPressed : null
       ]
-    }
+    },
+    onPress
   };
 
   return (
