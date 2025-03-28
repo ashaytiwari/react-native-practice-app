@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: 8,
     overflow: 'hidden',
-    backgroundColor: Colors.whiteColor,
+    backgroundColor: Colors.primaryColor,
     elevation: 4
   },
   mealItemTitle: {
-    color: Colors.darkBGColor,
+    color: Colors.whiteColor,
     fontWeight: 'bold',
     fontSize: 18,
     marginVertical: 10,

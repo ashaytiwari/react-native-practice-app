@@ -1,5 +1,8 @@
 export const Colors = {
   darkBGColor: '#2e313d',
   whiteColor: '#fff',
-  grey: '#c7c4bf'
+  grey: '#ccc',
+  primaryColor: '#048b74',
+  secondaryColor: '#F4FBFA',
+  tertiaryColor: '#03631B'
 };

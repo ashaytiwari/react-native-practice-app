@@ -16,11 +16,27 @@ function App() {
 
   function renderRootStack() {
 
+    const stackNavigatorAttributes = {
+      initialRouteName: screenNames.MEALS_CATEGORIES,
+      screenOptions: {
+        headerStyle: { backgroundColor: Colors.primaryColor },
+        headerTintColor: Colors.whiteColor,
+        contentStyle: {backgroundColor: Colors.secondaryColor}
+      }
+    };
+
     return (
-      <Stack.Navigator
-        initialRouteName={screenNames.MEALS_CATEGORIES}>
-        <Stack.Screen name={screenNames.MEALS_CATEGORIES} component={CategoriesScreen} options={{ title: 'Meals Categories' }} />
-        <Stack.Screen name={screenNames.MEALS_OVERVIEW} component={MealsOverviewScreen} options={{ title: 'Meals Overview' }} />
+      <Stack.Navigator{...stackNavigatorAttributes}>
+        <Stack.Screen
+          name={screenNames.MEALS_CATEGORIES}
+          component={CategoriesScreen}
+          options={{ title: 'All Categories' }}
+        />
+        <Stack.Screen
+          name={screenNames.MEALS_OVERVIEW}
+          component={MealsOverviewScreen}
+          options={{ title: 'Meals Overview' }}
+        />
       </Stack.Navigator>
     );
 
@@ -28,7 +44,7 @@ function App() {
 
   return (
     <>
-      <StatusBar barStyle={'light-content'} backgroundColor={Colors.darkBGColor} />
+      <StatusBar barStyle={'light-content'} backgroundColor={Colors.primaryColor} />
       <NavigationContainer>
         {renderRootStack()}
       </NavigationContainer>
