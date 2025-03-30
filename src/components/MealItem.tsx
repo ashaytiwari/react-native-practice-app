@@ -22,7 +22,7 @@ const MealItem: React.FC<IMealItemProps> = (props) => {
 
   return (
     <View style={styles.mealItemContainer}>
-      <Pressable>
+      <Pressable onPress={onPress}>
         <View>
           <Image {...mealImageAttributes} />
           <Text style={styles.mealItemTitle}>{title}</Text>

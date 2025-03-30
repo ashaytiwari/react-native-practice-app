@@ -9,6 +9,7 @@ import { screenNames } from "./src/helpers/screenNames";
 import CategoriesScreen from "./src/screens/CategoriesScreen";
 import MealsOverviewScreen from "./src/screens/MealsOverviewScreen";
 import { RootStackParamList } from "./src/interfaces/navigation";
+import MealsDetailsScreen from "./src/screens/MealsDetailsScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,7 +22,7 @@ function App() {
       screenOptions: {
         headerStyle: { backgroundColor: Colors.primaryColor },
         headerTintColor: Colors.whiteColor,
-        contentStyle: {backgroundColor: Colors.secondaryColor}
+        contentStyle: { backgroundColor: Colors.secondaryColor }
       }
     };
 
@@ -36,6 +37,11 @@ function App() {
           name={screenNames.MEALS_OVERVIEW}
           component={MealsOverviewScreen}
           options={{ title: 'Meals Overview' }}
+        />
+        <Stack.Screen
+          name={screenNames.MEALS_DETAILS}
+          component={MealsDetailsScreen}
+          options={{ title: 'Meals Details' }}
         />
       </Stack.Navigator>
     );

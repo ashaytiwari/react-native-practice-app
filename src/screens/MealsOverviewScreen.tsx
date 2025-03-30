@@ -5,11 +5,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { CATEGORIES, MEALS } from '../data';
 import MealItem from '../components/MealItem';
+import { screenNames } from '../helpers/screenNames';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../interfaces/navigation';
 
 function MealsOverviewScreen() {
 
   const route: any = useRoute();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const categoryId = route.params.categoryId;
 
@@ -35,7 +38,11 @@ function MealsOverviewScreen() {
       duration,
       affordability,
       complexity,
-      onPress() { }
+      onPress() {
+        navigation.navigate(screenNames.MEALS_DETAILS, {
+          mealDetails: itemData.item
+        })
+      }
     };
 
     return <MealItem {...mealItemAttributes} />;
