@@ -10,12 +10,46 @@ import CategoriesScreen from "./src/screens/CategoriesScreen";
 import MealsOverviewScreen from "./src/screens/MealsOverviewScreen";
 import { RootStackParamList } from "./src/interfaces/navigation";
 import MealsDetailsScreen from "./src/screens/MealsDetailsScreen";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import FavoritesScreen from "./src/screens/FavoritesScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator();
+
+function DrawerNavigator() {
+
+  const drawerNavigatorAttributes = {
+    initialRouteName: screenNames.MEALS_CATEGORIES,
+    screenOptions: {
+      headerStyle: { backgroundColor: Colors.primaryColor },
+      headerTintColor: Colors.whiteColor,
+      sceneContainerStyle: { backgroundColor: Colors.secondaryColor },
+      drawerContentStyle: {backgroundColor: Colors.secondaryColor},
+      drawerInactiveTintColor: Colors.darkBGColor,
+      drawerActiveTintColor: Colors.primaryColor,
+    }
+  };
+
+  return (
+    <Drawer.Navigator {...drawerNavigatorAttributes}>
+      <Drawer.Screen
+        name={screenNames.MEALS_CATEGORIES}
+        component={CategoriesScreen}
+        options={{ title: 'All Categories' }}
+      />
+      <Drawer.Screen
+        name={screenNames.FAVORITES}
+        component={FavoritesScreen}
+        options={{ title: 'Favorites Meals' }}
+      />
+    </Drawer.Navigator>
+  );
+
+}
 
 function App() {
 
-  function renderRootStack() {
+  function renderRootStackNavigator() {
 
     const stackNavigatorAttributes = {
       initialRouteName: screenNames.MEALS_CATEGORIES,
@@ -29,9 +63,9 @@ function App() {
     return (
       <Stack.Navigator{...stackNavigatorAttributes}>
         <Stack.Screen
-          name={screenNames.MEALS_CATEGORIES}
-          component={CategoriesScreen}
-          options={{ title: 'All Categories' }}
+          name={screenNames.DRAWER_ROOT}
+          component={DrawerNavigator}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name={screenNames.MEALS_OVERVIEW}
@@ -52,7 +86,7 @@ function App() {
     <>
       <StatusBar barStyle={'light-content'} backgroundColor={Colors.primaryColor} />
       <NavigationContainer>
-        {renderRootStack()}
+        {renderRootStackNavigator()}
       </NavigationContainer>
     </>
   );
